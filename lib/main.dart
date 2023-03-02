@@ -1,4 +1,7 @@
+import 'package:doctor_booking/layout.dart';
 import 'package:doctor_booking/utils/config.dart';
+import 'package:doctor_booking/view/auth/auth.dart';
+import 'package:doctor_booking/view/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -15,8 +18,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Doctor Appointment Booking',
+      transitionDuration: Duration(milliseconds: 500),
+      defaultTransition: Transition.fade,
       theme: ThemeData(
-        //pre-define input decoration
         inputDecorationTheme: const InputDecorationTheme(
           focusColor: Config.primaryColor,
           border: Config.outlinedBorder,
@@ -39,8 +43,9 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        // '/': (context) => const AuthPage(),
-        // 'main': (context) => const MainLayout(),
+        // '/': (context) => const AuthSelector(),
+        '/': (context) => const MainLayout(),
+        'main': (context) => const MainLayout(),
         // 'booking_page': (context) => BookingPage(),
         // 'success_booking': (context) => const AppointmentBooked(),
       },
