@@ -40,14 +40,14 @@ class Config {
   static const focusBorder = OutlineInputBorder(
       borderRadius: BorderRadius.all(Radius.circular(8)),
       borderSide: BorderSide(
-        color: Colors.greenAccent,
+        color: Color(0xFF4682B4),
       ));
-      
+
   static const errorBorder = OutlineInputBorder(
       borderRadius: BorderRadius.all(Radius.circular(8)),
       borderSide: BorderSide(
         color: Colors.red,
       ));
 
-  static const primaryColor = Colors.greenAccent;
+  static const primaryColor = Color(0xFF4682B4);
 }

@@ -1,4 +1,6 @@
+import 'package:doctor_booking/layout.dart';
 import 'package:doctor_booking/utils/config.dart';
+import 'package:doctor_booking/view/auth/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -39,8 +41,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        // '/': (context) => const AuthPage(),
-        // 'main': (context) => const MainLayout(),
+        '/': (context) => const AuthSelector(),
+        'main': (context) => const MainLayout(),
         // 'booking_page': (context) => BookingPage(),
         // 'success_booking': (context) => const AppointmentBooked(),
       },
