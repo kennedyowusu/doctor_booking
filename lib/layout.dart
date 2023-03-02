@@ -1,3 +1,7 @@
+import 'package:doctor_booking/view/home/appointment.dart';
+import 'package:doctor_booking/view/home/favorite.dart';
+import 'package:doctor_booking/view/home/home.dart';
+import 'package:doctor_booking/view/home/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -23,10 +27,10 @@ class _MainLayoutState extends State<MainLayout> {
           });
         }),
         children: <Widget>[
-          // const HomePage(),
-          // FavPage(),
-          // const AppointmentPage(),
-          // ProfilePage(),
+          const HomeScreen(),
+          FavoriteScreen(),
+          const AppointmentScreen(),
+          ProfileScreen(),
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -44,19 +48,19 @@ class _MainLayoutState extends State<MainLayout> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.houseChimneyMedical),
-            label: 'Home',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.solidHeart),
-            label: 'Favorite',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.solidCalendarCheck),
-            label: 'Appointments',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: FaIcon(FontAwesomeIcons.solidUser),
-            label: 'Profile',
+            label: '',
           ),
         ],
       ),

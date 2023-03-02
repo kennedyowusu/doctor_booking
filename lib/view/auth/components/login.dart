@@ -1,6 +1,8 @@
+import 'package:doctor_booking/layout.dart';
 import 'package:doctor_booking/utils/config.dart';
 import 'package:doctor_booking/widgets/button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({Key? key}) : super(key: key);
@@ -14,6 +16,7 @@ class _LoginFormState extends State<LoginForm> {
   final _emailController = TextEditingController();
   final _passController = TextEditingController();
   bool obsecurePass = true;
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -68,7 +71,11 @@ class _LoginFormState extends State<LoginForm> {
           Button(
             width: double.infinity,
             title: 'Sign In',
-            onPressed: () async {},
+            onPressed: () async {
+              Get.to(
+                () => MainLayout(),
+              );
+            },
             disable: false,
           ),
         ],
