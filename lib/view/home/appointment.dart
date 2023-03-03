@@ -1,5 +1,6 @@
 import 'package:doctor_booking/utils/config.dart';
 import 'package:doctor_booking/widgets/schedule.dart';
+import 'package:doctor_booking/widgets/shedule_card.dart';
 import 'package:flutter/material.dart';
 
 class AppointmentScreen extends StatefulWidget {
@@ -138,16 +139,22 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     margin: !isLastElement
-                        ? const EdgeInsets.only(bottom: 20)
+                        ? const EdgeInsets.only(bottom: 40)
                         : EdgeInsets.zero,
                     child: Padding(
-                      padding: const EdgeInsets.all(15),
+                      padding: EdgeInsets.all(15),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Row(
                             children: [
-                              CircleAvatar(),
+                              CircleAvatar(
+                                backgroundColor: Colors.grey.withOpacity(0.5),
+                                radius: 30,
+                                // backgroundImage: AssetImage(
+                                //   schedule.doctorImage,
+                                // ),
+                              ),
                               const SizedBox(
                                 width: 10,
                               ),
@@ -179,11 +186,11 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                           const SizedBox(
                             height: 15,
                           ),
-                          // ScheduleCard(
-                          //   date: schedule['date'],
-                          //   day: schedule['day'],
-                          //   time: schedule['time'],
-                          // ),
+                          ScheduleCard(
+                            date: " 12/05/23",
+                            time: "10:00 AM",
+                            day: "Wed,",
+                          ),
                           const SizedBox(
                             height: 15,
                           ),

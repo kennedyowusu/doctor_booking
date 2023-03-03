@@ -19,7 +19,7 @@ class ScheduleCard extends StatelessWidget {
       width: 300,
       padding: const EdgeInsets.all(20),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Icon(
