@@ -1,6 +1,6 @@
 import 'package:doctor_booking/utils/config.dart';
+import 'package:doctor_booking/widgets/schedule.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
 
 class AppointmentScreen extends StatefulWidget {
   const AppointmentScreen({Key? key}) : super(key: key);
@@ -9,13 +9,9 @@ class AppointmentScreen extends StatefulWidget {
   State<AppointmentScreen> createState() => _AppointmentScreenState();
 }
 
-//enum for appointment status
-enum FilterStatus { upcoming, complete, cancel }
-
 class _AppointmentScreenState extends State<AppointmentScreen> {
-  FilterStatus status = FilterStatus.upcoming; //initial status
+  ScheduleStatus status = ScheduleStatus.upcoming; //initial status
   Alignment _alignment = Alignment.centerLeft;
-  List<dynamic> schedules = [];
 
   @override
   void initState() {
@@ -24,19 +20,23 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<dynamic> filteredSchedules = schedules.where((var schedule) {
-      switch (schedule['status']) {
-        case 'upcoming':
-          schedule['status'] = FilterStatus.upcoming;
-          break;
-        case 'complete':
-          schedule['status'] = FilterStatus.complete;
-          break;
-        case 'cancel':
-          schedule['status'] = FilterStatus.cancel;
-          break;
-      }
-      return schedule['status'] == status;
+    // List<dynamic> filteredSchedules = schedules.where((var schedule) {
+    //   // switch (schedule['status']) {
+    //   //   case 'upcoming':
+    //   //     schedule['status'] = FilterStatus.upcoming;
+    //   //     break;
+    //   //   case 'complete':
+    //   //     schedule['status'] = FilterStatus.complete;
+    //   //     break;
+    //   //   case 'cancel':
+    //   //     schedule['status'] = FilterStatus.cancel;
+    //   //     break;
+    //   // }
+    //   return schedule['status'] == status;
+    // }).toList();
+
+    List<Schedule> filteredSchedules = schedules.where((schedule) {
+      return schedule.status == status;
     }).toList();
 
     return SafeArea(
@@ -67,23 +67,29 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       //this is the filter tabs
-                      for (FilterStatus filterStatus in FilterStatus.values)
+                      for (ScheduleStatus filterStatus in ScheduleStatus.values)
                         Expanded(
                           child: GestureDetector(
                             onTap: () {
+                              debugPrint("onTap called");
                               setState(() {
-                                if (filterStatus == FilterStatus.upcoming) {
-                                  status = FilterStatus.upcoming;
-                                  _alignment = Alignment.centerLeft;
-                                } else if (filterStatus ==
-                                    FilterStatus.complete) {
-                                  status = FilterStatus.complete;
-                                  _alignment = Alignment.center;
-                                } else if (filterStatus ==
-                                    FilterStatus.cancel) {
-                                  status = FilterStatus.cancel;
-                                  _alignment = Alignment.centerRight;
+                                switch (filterStatus) {
+                                  case ScheduleStatus.upcoming:
+                                    status = ScheduleStatus.upcoming;
+                                    _alignment = Alignment.centerLeft;
+                                    break;
+                                  case ScheduleStatus.complete:
+                                    status = ScheduleStatus.complete;
+                                    _alignment = Alignment.center;
+                                    break;
+                                  case ScheduleStatus.cancel:
+                                    status = ScheduleStatus.cancel;
+                                    _alignment = Alignment.centerRight;
+                                    break;
                                 }
+                                debugPrint(
+                                  "status: $status, _alignment: $_alignment",
+                                );
                               });
                             },
                             child: Center(
@@ -122,12 +128,12 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
               child: ListView.builder(
                 itemCount: filteredSchedules.length,
                 itemBuilder: ((context, index) {
-                  var schedule = filteredSchedules[index];
+                  Schedule schedule = filteredSchedules[index];
                   bool isLastElement = filteredSchedules.length + 1 == index;
                   return Card(
                     shape: RoundedRectangleBorder(
-                      side: const BorderSide(
-                        color: Colors.grey,
+                      side: BorderSide(
+                        color: Colors.grey.withOpacity(0.8),
                       ),
                       borderRadius: BorderRadius.circular(20),
                     ),
@@ -149,7 +155,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    schedule['doctor_name'],
+                                    schedule.doctorName,
                                     style: const TextStyle(
                                       color: Colors.black,
                                       fontWeight: FontWeight.w700,
@@ -159,7 +165,7 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                                     height: 5,
                                   ),
                                   Text(
-                                    schedule['category'],
+                                    schedule.specialty,
                                     style: const TextStyle(
                                       color: Colors.grey,
                                       fontSize: 12,
@@ -173,11 +179,11 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
                           const SizedBox(
                             height: 15,
                           ),
-                          ScheduleCard(
-                            date: schedule['date'],
-                            day: schedule['day'],
-                            time: schedule['time'],
-                          ),
+                          // ScheduleCard(
+                          //   date: schedule['date'],
+                          //   day: schedule['day'],
+                          //   time: schedule['time'],
+                          // ),
                           const SizedBox(
                             height: 15,
                           ),
@@ -220,65 +226,6 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class ScheduleCard extends StatelessWidget {
-  const ScheduleCard(
-      {Key? key, required this.date, required this.day, required this.time})
-      : super(key: key);
-  final String date;
-  final String day;
-  final String time;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey.shade200,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          const Icon(
-            Icons.calendar_today,
-            color: Config.primaryColor,
-            size: 15,
-          ),
-          const SizedBox(
-            width: 5,
-          ),
-          Text(
-            '$day, $date',
-            style: const TextStyle(
-              color: Config.primaryColor,
-            ),
-          ),
-          const SizedBox(
-            width: 20,
-          ),
-          const Icon(
-            Icons.access_alarm,
-            color: Config.primaryColor,
-            size: 17,
-          ),
-          const SizedBox(
-            width: 5,
-          ),
-          Flexible(
-              child: Text(
-            time,
-            style: const TextStyle(
-              color: Config.primaryColor,
-            ),
-          ))
-        ],
       ),
     );
   }
