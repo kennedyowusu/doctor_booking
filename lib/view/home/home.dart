@@ -19,27 +19,27 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Map<String, dynamic>> medCat = [
     {
       "icon": FontAwesomeIcons.userDoctor,
-      "category": "General",
+      "specialty": "General",
     },
     {
       "icon": FontAwesomeIcons.heartPulse,
-      "category": "Cardiology",
+      "specialty": "Cardiology",
     },
     {
       "icon": FontAwesomeIcons.lungs,
-      "category": "Respirations",
+      "specialty": "Respirations",
     },
     {
       "icon": FontAwesomeIcons.hand,
-      "category": "Dermatology",
+      "specialty": "Dermatology",
     },
     {
       "icon": FontAwesomeIcons.personPregnant,
-      "category": "Gynecology",
+      "specialty": "Gynecology",
     },
     {
       "icon": FontAwesomeIcons.teeth,
-      "category": "Dental",
+      "specialty": "Dental",
     },
   ];
 
@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Config.spaceMedium,
                 const Text(
-                  'Category',
+                  'Specialty',
                   style: TextStyle(
                     fontSize: 16,
                   ),
@@ -117,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 width: 20,
                               ),
                               Text(
-                                medCat[index]['category'],
+                                medCat[index]['specialty'],
                                 style: const TextStyle(
                                   fontSize: 16,
                                   color: Colors.white,
