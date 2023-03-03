@@ -41,6 +41,7 @@ dependencies:
   table_calendar: ^3.0.9
   lottie: ^2.2.0
   rating_dialog: ^2.0.4
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   flutter_test:
