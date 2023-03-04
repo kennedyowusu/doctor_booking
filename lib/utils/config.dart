@@ -26,8 +26,8 @@ class Config {
     height: 25,
   );
   static final spaceMedium = SizedBox(
-    height: screenHeight! * 0.05,
-  );
+      // height: screenHeight! * 0.05,
+      );
   static final spaceBig = SizedBox(
     height: screenHeight! * 0.08,
   );
