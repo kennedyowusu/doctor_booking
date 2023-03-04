@@ -28,7 +28,7 @@ class AppointmentBooked extends StatelessWidget {
               width: double.infinity,
               alignment: Alignment.center,
               child: const Text(
-                'Successfully Booked',
+                'Appointment Booked Successfully',
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
