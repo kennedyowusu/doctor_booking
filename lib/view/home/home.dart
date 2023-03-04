@@ -147,7 +147,9 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 Config.spaceSmall,
-                TopDoctorsCardHolder(),
+                TopDoctorsCardHolder(
+                  routeName: 'doctor_details',
+                ),
                 Config.spaceSmall,
               ],
             ),
