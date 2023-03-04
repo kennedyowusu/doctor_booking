@@ -3,6 +3,7 @@ import 'package:doctor_booking/utils/config.dart';
 import 'package:doctor_booking/view/auth/auth.dart';
 import 'package:doctor_booking/view/home/book_doctor.dart';
 import 'package:doctor_booking/view/home/doctor_details.dart';
+import 'package:doctor_booking/view/home/successful_booking.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
         'main': (context) => const MainLayout(),
         'doctor_details': (context) => DoctorDetails(),
         'book_page': (context) => BookingScreen(),
-        // 'success_booking': (context) => const AppointmentBooked(),
+        'success_booking': (context) => const AppointmentBooked(),
       },
     );
   }

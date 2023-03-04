@@ -135,6 +135,11 @@ class _BookingScreenState extends State<BookingScreen> {
                 title: 'Make Appointment',
                 onPressed: () async {
                   //convert date/day/time into string first
+                  final date = _currentDay.toString().split(' ')[0];
+                  final time = '${_currentIndex! + 9}:00:00';
+                  //insert data into database
+
+                  Navigator.pushNamed(context, 'success_booking');
                 },
                 disable: _timeSelected && _dateSelected ? false : true,
               ),

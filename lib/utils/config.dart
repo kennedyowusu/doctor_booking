@@ -49,5 +49,5 @@ class Config {
         color: Colors.red,
       ));
 
-  static const primaryColor = Color(0xFF4682B4);
+  static const primaryColor = Color(0xFFF9A826);
 }
