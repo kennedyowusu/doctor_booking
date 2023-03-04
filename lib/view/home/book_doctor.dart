@@ -3,16 +3,17 @@ import 'package:doctor_booking/widgets/appbar.dart';
 import 'package:doctor_booking/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:table_calendar/table_calendar.dart';
 
-class BookingPage extends StatefulWidget {
-  const BookingPage({Key? key}) : super(key: key);
+class BookingScreen extends StatefulWidget {
+  const BookingScreen({Key? key}) : super(key: key);
 
   @override
-  State<BookingPage> createState() => _BookingPageState();
+  State<BookingScreen> createState() => _BookingScreenState();
 }
 
-class _BookingPageState extends State<BookingPage> {
+class _BookingScreenState extends State<BookingScreen> {
   //declaration
   CalendarFormat _format = CalendarFormat.month;
   DateTime _focusDay = DateTime.now();
@@ -22,7 +23,6 @@ class _BookingPageState extends State<BookingPage> {
   bool _dateSelected = false;
   bool _timeSelected = false;
   String? token; //get token for insert booking date and time into database
-
 
   @override
   void initState() {
@@ -61,16 +61,27 @@ class _BookingPageState extends State<BookingPage> {
           ),
           _isWeekend
               ? SliverToBoxAdapter(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 30),
-                    alignment: Alignment.center,
-                    child: const Text(
-                      'Weekend is not available, please select another date',
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey,
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.red.shade100,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 10,
+                      ),
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Sorry, We don\'t work on weekends. Please select another date',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black.withOpacity(0.5),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -123,7 +134,12 @@ class _BookingPageState extends State<BookingPage> {
                 width: double.infinity,
                 title: 'Make Appointment',
                 onPressed: () async {
-                  
+                  //convert date/day/time into string first
+                  final date = _currentDay.toString().split(' ')[0];
+                  final time = '${_currentIndex! + 9}:00:00';
+                  //insert data into database
+
+                  Navigator.pushNamed(context, 'success_booking');
                 },
                 disable: _timeSelected && _dateSelected ? false : true,
               ),
@@ -155,6 +171,22 @@ class _BookingPageState extends State<BookingPage> {
           _format = format;
         });
       },
+      onDaySelected: ((selectedDay, focusedDay) {
+        setState(() {
+          _currentDay = selectedDay;
+          _focusDay = focusedDay;
+          _dateSelected = true;
+
+          //check if weekend is selected
+          if (selectedDay.weekday == 6 || selectedDay.weekday == 7) {
+            _isWeekend = true;
+            _timeSelected = false;
+            _currentIndex = null;
+          } else {
+            _isWeekend = false;
+          }
+        });
+      }),
     );
   }
 }
